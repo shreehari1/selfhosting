@@ -2,6 +2,8 @@ services:
   dashy:
     container_name: Dashy
     image: lissy93/dashy:latest
+    ports:
+      - 80:80
     volumes:
       - ./dashy/config.yml:/app/public/conf.yml
       - ./dashy/icons:/app/public/item-icons/icons
