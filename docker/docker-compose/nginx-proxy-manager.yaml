@@ -1,0 +1,10 @@
+services:
+  nginx-proxy-mgr:
+    container_name: nginx-proxy-mgr
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    volumes:
+      - ./nginx-proxy-mgr/data:/data
+      - ./nginx-proxy-mgr/letsencrypt:/etc/letsencrypt
+    networks:
+      - docker_net
