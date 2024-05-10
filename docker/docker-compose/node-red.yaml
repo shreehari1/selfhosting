@@ -1,0 +1,16 @@
+services:
+  node-red:
+    container_name: node-red
+    image: nodered/node-red:latest
+    user: 1000:1000
+    environment:
+      - TZ=Asia/Kolkata
+    volumes:
+      - ./node-red:/data
+    restart: unless-stopped
+    ports:
+      - 1880:1880
+    networks:
+      - docker_net
+volumes:
+  node-red:
