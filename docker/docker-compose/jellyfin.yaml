@@ -1,0 +1,24 @@
+services:
+  jellyfin:
+    container_name: jellyfin
+    image: linuxserver/jellyfin:latest
+    ports:
+      - 8096:8096
+    environment:
+      # Optional: put your config options customization here. Examples:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+    volumes:
+      - /path/to/jellyfin/movies:/MOVIES:ro
+      - /path/to/jellyfin/music:/MUSIC:ro
+      - /path/to/storage/jellyfin/tv:/TVSHOWS:ro
+      - ./jellyfin:/config
+    restart: unless-stopped
+    devices:
+    #This is only for Raspberry pi hardware transcoding
+      - /dev/video10:/dev/video10
+      - /dev/video11:/dev/video11
+      - /dev/video12:/dev/video12
+    networks:
+      - docker_net
