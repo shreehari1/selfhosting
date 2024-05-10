@@ -1,0 +1,12 @@
+services:
+  mosquitto-mqtt:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto-mqtt
+    user: 1000:1000
+    volumes:
+      - ./mosquitto:/mosquitto # create config file manually
+    restart: unless-stopped
+    ports:
+      - 1883:1883
+    networks:
+      - docker_net
