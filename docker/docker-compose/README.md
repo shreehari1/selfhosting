@@ -1,16 +1,17 @@
 # Docker compose file collectiom
+
 Docker compose files for quick reference
 
-### Docker compose
+## Docker compose
 
-#### Docker compose installation
+### Docker compose installation
+
 Install docker and docker compose with
 ```bash
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $(whoami)
 exit
 ```
-
 Docker compose can be run with:
 ```
 docker compose up -d
@@ -36,7 +37,8 @@ Specific container name can be passed to restart them. if left blank all will be
 docker compose restart <container>
 ```
 
-#### Docker network
+### Docker network
+
 Create docker network with: 
 ```
 docker network create <docker_network>
