@@ -1,0 +1,10 @@
+services:
+  snippet-box:
+    container_name: snippet-box
+    image: pawelmalak/snippet-box:arm  # Arm image
+    volumes:
+      - ./snippet-box/data:/app/data
+    ports:
+      - 5000:5000
+    networks:
+      - docker_net
