@@ -1,0 +1,11 @@
+services:
+  memos:
+    container_name: memos
+    image: ghcr.io/usememos/memos:latest
+    ports:
+      - 5230:5230
+    volumes:
+      - ./memos/:/var/opt/memos
+    restart: unless-stopped
+    networks:
+      - docker_net
