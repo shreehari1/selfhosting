@@ -1,0 +1,23 @@
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    restart: unless-stopped
+    hostname: pihole
+    dns:
+      - 10.2.0.xx # Points to unbound
+      - 1.1.1.1 
+    environment:
+      TZ: 'Asia/Kolkata'
+      WEBPASSWORD: '${PASSWORD}' # Blank password - Can be whatever you want.
+      # ServerIP: 10.1.0.1 # Internal IP of pihole
+    # Volumes store your data between container upgrades
+    volumes:
+      - "./pihole/etc-pihole/:/etc/pihole/"
+      - "./pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/"
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - docker_net
