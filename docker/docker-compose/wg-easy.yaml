@@ -1,0 +1,25 @@
+services:
+  wg-easy:
+    image: weejewel/wg-easy
+    container_name: wg-easy
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - TZ='Asia/Kolkata'
+      - WG_PORT=55555
+      - WG_DEFAULT_DNS=10.2.0.1
+      - WG_DEFAULT_ADDRESS=10.2.0.x
+      - WG_HOST=${HOSTNAME}
+      - PASSWORD=${PASSWORD}
+    volumes:
+      - ./wireguard:/etc/wireguard
+    ports:
+      - "55555:51820/udp"
+      - "55556:51821/tcp"
+    restart: unless-stopped
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.src_valid_mark=1
+    networks:
+      - docker_net
