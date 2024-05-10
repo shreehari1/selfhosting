@@ -1,0 +1,14 @@
+services:
+  dockge:
+    image: louislam/dockge:latest
+    restart: unless-stopped
+    ports:
+      - 5001:5001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/app/data
+      - /dockge/workspace/stacks:/dockge/workspace/stacks # change stacks location as required
+    environment:
+      - DOCKGE_STACKS_DIR=/dockge/workspace/stacks # needs to be same as above stacks location
+    networks:
+      - docker_net
