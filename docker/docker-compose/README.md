@@ -4,8 +4,6 @@ Docker compose files for quick reference
 
 ## Docker compose
 
-### Docker compose installation
-
 Install docker and docker compose with
 ```bash
 curl -sSL https://get.docker.com | sh
@@ -37,7 +35,7 @@ Specific container name can be passed to restart them. if left blank all will be
 docker compose restart <container>
 ```
 
-### Docker network
+## Docker network
 
 Create docker network with: 
 ```
