@@ -2,6 +2,9 @@ services:
   nextcloud:
     image: lscr.io/linuxserver/nextcloud:latest
     container_name: nextcloud
+    ports:
+      - 80:80
+      - 433:433 # TLS enabled
     environment:
       - PUID=1000
       - PGID=1000
