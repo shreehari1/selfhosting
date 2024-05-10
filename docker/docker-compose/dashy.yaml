@@ -1,0 +1,14 @@
+services:
+  dashy:
+    container_name: Dashy
+    image: lissy93/dashy:latest
+    volumes:
+      - ./dashy/config.yml:/app/public/conf.yml
+      - ./dashy/icons:/app/public/item-icons/icons
+    environment:
+      - NODE_ENV=production
+      - UID=1000
+      - GID=1000
+    restart: unless-stopped
+    networks:
+      - docker_net
