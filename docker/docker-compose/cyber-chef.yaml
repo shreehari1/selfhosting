@@ -1,0 +1,9 @@
+services:
+  cyber-chef:
+    container_name: cyber-chef
+    image: mpepping/cyberchef:latest
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+    networks:
+      - cyberdeck_net
