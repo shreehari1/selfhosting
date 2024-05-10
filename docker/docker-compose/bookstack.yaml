@@ -1,0 +1,39 @@
+services:
+  bookstack:
+    image: lscr.io/linuxserver/bookstack
+    container_name: bookstack
+    ports:
+      - 80:80
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - APP_URL=http://bookstack.app.cloud
+      - DB_HOST=maria_db
+      - DB_USER=bookstack_admin
+      - DB_PASS=bookstack
+      - DB_DATABASE=bookstackapp
+    volumes:
+      - ./bookstack/data:/config
+    restart: unless-stopped
+    depends_on:
+      - maria_db
+    networks:
+      - docker_net
+
+  maria_db:
+  # port: 3306
+    image: lscr.io/linuxserver/mariadb
+    container_name: maria_db
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - MYSQL_ROOT_PASSWORD=mariadbpassword
+      - TZ=Asia/kolkata
+      - MYSQL_DATABASE=bookstackapp
+      - MYSQL_USER=bookstack_admin
+      - MYSQL_PASSWORD=bookstack
+    volumes:
+      - ./maria_db/data:/config
+    restart: unless-stopped
+    networks:
+      - docker_net
