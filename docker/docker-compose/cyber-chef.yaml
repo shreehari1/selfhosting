@@ -6,4 +6,8 @@ services:
     ports:
       - 8000:8000
     networks:
-      - cyberdeck_net
+      - docker_net
+
+networks:
+  docker_net:
+    external: true
