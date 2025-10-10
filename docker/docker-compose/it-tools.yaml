@@ -4,7 +4,7 @@ services:
     image: corentinth/it-tools:latest
     restart: unless-stopped
     ports:
-      - 8080:80
+      - 8082:80
     networks:
       - docker_net
 
