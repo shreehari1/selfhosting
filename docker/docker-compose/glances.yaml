@@ -5,8 +5,6 @@ services:
     ports:
       - 61208:61208
     restart: unless-stopped
-    networks:
-      - docker_net
     privileged: true
     pid: host
     volumes:
