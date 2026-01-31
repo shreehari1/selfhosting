@@ -1,0 +1,38 @@
+---
+- name: Configure LXC container
+  hosts: lxc_containers
+  become: true
+  vars_files:
+    - ../vars/vault.yml
+    - ../vars/{{ env }}.yml
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      tags: update,basic
+
+    - name: Upgrade all packages
+      apt:
+        upgrade: dist
+      tags: update,basic
+
+    - name: Install required packages
+      apt:
+        name:
+          - vim
+          - curl
+        state: present
+      tags: basic
+
+    - name: Install Docker using geerlingguy.docker role
+      include_role:
+        name: geerlingguy.docker
+      tags: basic,docker
+
+    - name: Install Hawser
+      ansible.builtin.shell:
+        cmd: curl -fsSL https://raw.githubusercontent.com/Finsys/hawser/main/scripts/install.sh | bash
+      args:
+        executable: /bin/bash
+      tags: agent
+

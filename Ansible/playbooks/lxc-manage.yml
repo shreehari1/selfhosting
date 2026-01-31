@@ -1,0 +1,73 @@
+---
+- name: Create LXC container in Proxmox
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - ../vars/vault.yml
+    - ../vars/{{ env }}.yml
+        
+  tasks:
+    - name: Create LXC container
+      community.general.proxmox:
+        vmid: "{{ lxc_vmid }}"
+        node: "{{ proxmox_node }}"
+        api_user: "{{ proxmox_user }}"
+        api_token_id: "{{ proxmox_token_id }}"
+        api_token_secret: "{{ proxmox_token_secret }}"
+        api_host: "{{ proxmox_host }}"
+        validate_certs: "{{ proxmox_validate_certs }}"
+        hostname: "{{ lxc_hostname }}"
+        pubkey: "{{ lookup('file', ssh_key_file) }}"
+        ostemplate: "{{ lxc_template }}"
+        memory: "{{ lxc_memory }}"
+        swap: "{{ lxc_swap }}"
+        disk: "{{ lxc_storage }}:{{ lxc_disk }}"
+        cores: "{{ lxc_cores }}"
+        netif: 
+          net0 : "name={{ lxc_network_interface }},bridge={{ lxc_bridge }},ip={{ lxc_ip }},gw={{ lxc_gateway }}"
+        nameserver: "{{ dns_server1 }}"
+        state: present
+        unprivileged: true
+        features:  
+          - nesting=1
+        onboot: "{{ lxc_start_on_boot}}"
+      tags: create
+
+    - name: Start LXC container
+      community.general.proxmox:
+        vmid: "{{ lxc_vmid }}"
+        node: "{{ proxmox_node }}"
+        api_user: "{{ proxmox_user }}"
+        api_token_id: "{{ proxmox_token_id }}"
+        api_token_secret: "{{ proxmox_token_secret }}"
+        api_host: "{{ proxmox_host }}"
+        validate_certs: "{{ proxmox_validate_certs }}"
+        state: started
+      tags: start
+
+    - name: Stop LXC container
+      community.general.proxmox:
+        vmid: "{{ lxc_vmid }}"
+        node: "{{ proxmox_node }}"
+        api_user: "{{ proxmox_user }}"
+        api_token_id: "{{ proxmox_token_id }}"
+        api_token_secret: "{{ proxmox_token_secret }}"
+        api_host: "{{ proxmox_host }}"
+        validate_certs: "{{ proxmox_validate_certs }}"
+        state: stopped
+      tags: stop,delete
+
+    - name: Delete LXC container
+      community.general.proxmox:
+        vmid: "{{ lxc_vmid }}"
+        node: "{{ proxmox_node }}"
+        api_user: "{{ proxmox_user }}"
+        api_token_id: "{{ proxmox_token_id }}"
+        api_token_secret: "{{ proxmox_token_secret }}"
+        api_host: "{{ proxmox_host }}"
+        validate_certs: "{{ proxmox_validate_certs }}"
+        state: absent
+      tags: delete
+
