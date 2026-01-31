@@ -93,7 +93,7 @@ ansible-playbook -i inventories/production.ini playbooks/lxc-manage.yml \
 
 ## 🛠 Management Tasks
 
-- **Update Inventory**: Add new container details in `Ansible/inventories/production.ini`.
+- **Update Inventory**: Add new container details in `Ansible/inventories/production.ini` and host details in `Ansible/vars/*.yaml` files.
 
 ---
 *Note: This repository is intended for personal homelab use. Go through the scripts carefully before using to your needs.*
