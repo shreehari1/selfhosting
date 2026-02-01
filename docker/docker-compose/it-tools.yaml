@@ -5,9 +5,3 @@ services:
     restart: unless-stopped
     ports:
       - 8081:80
-    networks:
-      - docker_net
-
-networks:
-  docker_net:
-    external: true
