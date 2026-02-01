@@ -2,9 +2,6 @@
 - name: Configure LXC container
   hosts: lxc_containers
   become: true
-  vars_files:
-    - ../vars/vault.yml
-    - ../vars/{{ env }}.yml
   tasks:
     - name: Update apt cache
       apt:
@@ -21,18 +18,63 @@
         name:
           - vim
           - curl
+          - sudo
         state: present
       tags: basic
 
-    - name: Install Docker using geerlingguy.docker role
-      include_role:
-        name: geerlingguy.docker
-      tags: basic,docker
+    - name: Install Docker prerequisites
+      apt:
+        name:
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+      tags: docker
+
+    - name: Add Docker GPG key
+      ansible.builtin.shell:
+        cmd: curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+      tags: docker
+
+    - name: Add Docker repository
+      ansible.builtin.shell:
+        cmd: echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+      tags: docker
+
+    - name: Update apt cache for Docker repo
+      apt:
+        update_cache: yes
+      tags: docker
+
+    - name: Install Docker and Docker Compose
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+        state: present
+      tags: docker
+
+    - name: Start and enable Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+      tags: docker
 
     - name: Install Hawser
       ansible.builtin.shell:
         cmd: curl -fsSL https://raw.githubusercontent.com/Finsys/hawser/main/scripts/install.sh | bash
       args:
         executable: /bin/bash
+      tags: agent
+
+    - name: Start Hawser service
+      systemd:
+        name: hawser
+        state: started
+        enabled: yes
       tags: agent
 
