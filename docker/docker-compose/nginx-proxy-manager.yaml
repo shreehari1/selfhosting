@@ -1,13 +1,12 @@
 services:
   nginx-proxy-mgr:
     container_name: nginx-proxy-mgr
-    image: 'jc21/nginx-proxy-manager:latest'
+    image: 'docker.io/jc21/nginx-proxy-manager:latest'
     ports:
       - 80:80 # reverse proxy
       - 81:81 # webui
+      - 443:443 # reverse proxy
     restart: unless-stopped
     volumes:
       - ./nginx-proxy-mgr/data:/data
       - ./nginx-proxy-mgr/letsencrypt:/etc/letsencrypt
-    networks:
-      - docker_net
