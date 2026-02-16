@@ -1,13 +1,7 @@
 services:
   cyber-chef:
     container_name: cyber-chef
-    image: mpepping/cyberchef:latest
+    image: ghcr.io/gchq/cyberchef:latest
     restart: unless-stopped
     ports:
-      - 8000:8000
-    networks:
-      - docker_net
-
-networks:
-  docker_net:
-    external: true
+      - 8000:80
