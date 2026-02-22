@@ -7,9 +7,10 @@ services:
       - PGID=$(id -g)
       - TZ=Asia/Kolkata
       - PASSWORD=${PASS}
-      - DEFAULT_WORKSPACE=/home.code-server #optional
+      - DEFAULT_WORKSPACE=/home/code-server #optional
     volumes:
       - ./code-server/config:/config
+      - ./home/code-server:/home/code-server
     ports:
       - 8443:8443
     restart: unless-stopped
