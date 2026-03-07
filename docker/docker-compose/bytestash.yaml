@@ -3,7 +3,7 @@ services:
     image: "ghcr.io/jordan-dalby/bytestash:latest"
     restart: unless-stopped
     volumes:
-      - ./bytestash/snippet/path:/data/snippets
+      - /opt/bytestash/snippet/path:/data/snippets
     ports:
       - "5000:5000"
     environment:
