@@ -8,5 +8,5 @@ services:
       - 443:443 # reverse proxy
     restart: unless-stopped
     volumes:
-      - ./nginx-proxy-mgr/data:/data
-      - ./nginx-proxy-mgr/letsencrypt:/etc/letsencrypt
+      - /opt/nginx-proxy-mgr/data:/data
+      - /opt/nginx-proxy-mgr/letsencrypt:/etc/letsencrypt
