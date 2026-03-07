@@ -1,5 +1,6 @@
 services:
   bytestash:
+    container_name: bytestash
     image: "ghcr.io/jordan-dalby/bytestash:latest"
     restart: unless-stopped
     volumes:
