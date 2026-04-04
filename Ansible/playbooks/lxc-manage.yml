@@ -2,7 +2,7 @@
 - name: Create LXC container in Proxmox
   hosts: localhost
   connection: local
-  gather_facts: no
+  gather_facts: false
 
   vars_files:
     - ../vars/vault.yml
@@ -29,9 +29,9 @@
           net0 : "name={{ lxc_network_interface }},bridge={{ lxc_bridge }},ip={{ lxc_ip }},gw={{ lxc_gateway }}"
         nameserver: "{{ dns_server1 }}"
         state: present
-        unprivileged: true
-        features:  
-          - nesting=1
+        unprivileged: no
+        # features:  
+        #   - nesting=1
         onboot: "{{ lxc_start_on_boot}}"
       tags: create
 
