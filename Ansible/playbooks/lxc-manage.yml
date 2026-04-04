@@ -29,9 +29,9 @@
           net0 : "name={{ lxc_network_interface }},bridge={{ lxc_bridge }},ip={{ lxc_ip }},gw={{ lxc_gateway }}"
         nameserver: "{{ dns_server1 }}"
         state: present
-        unprivileged: no
-        # features:  
-        #   - nesting=1
+        unprivileged: yes
+        features:  
+          - nesting=1
         onboot: "{{ lxc_start_on_boot}}"
       tags: create
 

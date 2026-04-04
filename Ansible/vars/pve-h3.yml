@@ -1,6 +1,6 @@
 # Proxmox configuration
 proxmox_token_secret: "{{ vault_proxmox_token_secret.prod }}"
-proxmox_host: 192.168.0.123
+proxmox_host: "{{ vault_proxmox_host.pve-h3 }}"
 proxmox_node: pve-h3
 
 # LXC container configuration
@@ -20,5 +20,5 @@ lxc_start_on_boot: false
 
 
 ssh_key_file: ~/.ssh/selfhosted-cloud-ssh.key.pub
-dns_server1: 10.0.0.1
+dns_server1: 10.0.0.101
 dns_server2: 1.1.1.1
