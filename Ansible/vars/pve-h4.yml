@@ -1,6 +1,6 @@
 # Proxmox configuration
 proxmox_token_secret: "{{ vault_proxmox_token_secret.prod }}"
-proxmox_host: "{{ vault_proxmox_host.pve-h4 }}"
+proxmox_host: "{{ vault_proxmox_host.pve_h4 }}"
 proxmox_node: pve-h4
 
 
