@@ -17,7 +17,7 @@ lxc_bridge: vmbr1
 lxc_ip: 10.0.0.{{ id }}/24
 lxc_gateway: 10.0.0.1
 lxc_network_interface: eth0
-lxc_start_on_boot: false
+lxc_start_on_boot: true
 
 
 ssh_key_file: ~/.ssh/selfhosted-cloud-ssh.key.pub

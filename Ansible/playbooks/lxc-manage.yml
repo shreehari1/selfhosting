@@ -71,3 +71,10 @@
         state: absent
       tags: delete
 
+    - name: Add LXC to inventory file
+      lineinfile:
+        path: "../inventories/production.ini"
+        insertafter: "\\[lxc_containers\\]"
+        line: "{{ lxc_hostname }} ansible_host={{ lxc_ip }}"
+      tags: create
+
