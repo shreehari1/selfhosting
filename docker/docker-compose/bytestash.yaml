@@ -19,9 +19,9 @@ services:
       DISABLE_INTERNAL_ACCOUNTS: "false"
 
       # See https://github.com/jordan-dalby/ByteStash/wiki/Single-Sign%E2%80%90on-Setup for more info
-      OIDC_ENABLED: "false"
-      OIDC_DISPLAY_NAME: ""
-      OIDC_ISSUER_URL: ""
-      OIDC_CLIENT_ID: ""
-      OIDC_CLIENT_SECRET: ""
-      OIDC_SCOPES: ""
+      OIDC_ENABLED: "true"
+      OIDC_DISPLAY_NAME: ${OIDC_DISPLAY_NAME:-"OIDC Provider"}
+      OIDC_ISSUER_URL: ${OIDC_ISSUER_URL}
+      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID}
+      OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET}
+      OIDC_SCOPES: ${OIDC_SCOPES}
