@@ -1,6 +1,7 @@
 services:
   outline:
     image: docker.getoutline.com/outlinewiki/outline:latest
+    env_file: ./.env
     expose:
       - "3000"
     volumes:
