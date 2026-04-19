@@ -1,14 +1,36 @@
 services:
   outline:
     image: docker.getoutline.com/outlinewiki/outline:latest
-    env_file: /opt/outline/.env.production
     container_name: outline
     ports:
       - "3000:3000"
-    expose:
-      - "3000"
     volumes:
       - /opt/outline/storage-data:/var/lib/outline/data
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgres://user:pass@outline-postgres:5432/outline}
+      DEFAULT_LANGUAGE: en_US
+      FILE_STORAGE: local
+      FILE_STORAGE_LOCAL_ROOT_DIR: ${FILE_STORAGE_LOCAL_ROOT_DIR:-/opt/outline/data}
+      FORCE_HTTPS: false
+      LOG_LEVEL: info
+      NODE_ENV: production
+      OIDC_AUTH_URI: ${OIDC_AUTH_URI}
+      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID}
+      OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET}
+      OIDC_DISPLAY_NAME: ${OIDC_DISPLAY_NAME:-authentik}
+      OIDC_LOGOUT_URI: ${OIDC_LOGOUT_URI}
+      OIDC_SCOPES: ${OIDC_SCOPES:-openid profile email}
+      OIDC_TOKEN_URI: ${OIDC_TOKEN_URI}
+      OIDC_USERINFO_URI: ${OIDC_USERINFO_URI}
+      OIDC_USERNAME_CLAIM: ${OIDC_USERNAME_CLAIM:-preferred_username}
+      PGSSLMODE: disable
+      PORT: 3000
+      REDIS_URL: redis://redis:6379
+      SECRET_KEY: ${SECRET_KEY:-supersecretkey}
+      URL: ${URL:-https://outline:3000}
+      COLLABORATION_URL:
+      UTILS_SECRET: ${UTILS_SECRET:-supersecretkey}
+      WEB_CONCURRENCY: 1
     depends_on:
       - postgres
       - redis
@@ -16,7 +38,6 @@ services:
   redis:
     image: redis
     container_name: outline-redis
-    env_file: /opt/outline/.env.production
     expose:
       - "6379"
     volumes:
@@ -31,7 +52,6 @@ services:
   postgres:
     image: postgres:18
     container_name: outline-postgres
-    env_file: /opt/outline/.env.production
     expose:
       - "5432"
     volumes:
