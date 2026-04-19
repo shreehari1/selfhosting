@@ -12,6 +12,16 @@ services:
     environment:
       MEILI_ADDR: http://meilisearch:7700
       BROWSER_WEB_URL: http://chrome:9222
+      KARAKEEP_VERSION: ${KARAKEEP_VERSION:-release}
+      # random string using `openssl rand -hex 32`
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:-masterKey}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-supersecretkey}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3090}
+      OAUTH_AUTO_REDIRECT: ${OAUTH_AUTO_REDIRECT:-true}
+      OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
+      OAUTH_CLIENT_SECRET: ${OAUTH_CLIENT_SECRET}
+      OAUTH_PROVIDER_NAME: ${OAUTH_PROVIDER_NAME:-Authentik}
+      OAUTH_WELLKNOWN_URL: ${OAUTH_WELLKNOWN_URL}
       # OPENAI_API_KEY: ...
 
       # You almost never want to change the value of the DATA_DIR variable.
