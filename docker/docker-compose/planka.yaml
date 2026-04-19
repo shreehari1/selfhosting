@@ -1,0 +1,37 @@
+services:
+  planka:
+    image: ghcr.io/plankanban/planka:latest
+    restart: on-failure
+    volumes:
+      - /opt/planka/data:/app/data
+    ports:
+      - 3060:1337
+    environment:
+      - BASE_URL=${BASE_URL:-http://localhost:3060}
+      - DATABASE_URL=postgresql://postgres@postgres/planka
+      - SECRET_KEY=${SECRET_KEY:-notsecretkey}
+      - LOG_LEVEL=info
+      - OIDC_ISSUER=${OIDC_ISSUER}
+      - OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
+      - OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
+      #Optionally, if you want to provision users with administrator access, include the following environment variable:
+      - OIDC_ADMIN_ROLES=${OIDC_ADMIN_ROLES:-planka-admins}
+        #Optionally, if you want to enforce the use of SSO and disable local authentication, include the following environment variable:
+      - OIDC_ENFORCED=true
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine
+    restart: on-failure
+    volumes:
+      - /opt/planka/db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=planka
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d planka"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
