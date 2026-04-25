@@ -11,10 +11,10 @@ services:
     ports:
       - "${PULSE_PORT:-7655}:7655"
     volumes:
-      - /opt/pulse-data:/data
+      - /opt/pulse/data:/data
       # Temperature monitoring: install pulse-agent on each Proxmox host with --enable-proxmox, or use SSH (see docs/TEMPERATURE_MONITORING.md).
     environment:
-      - TZ=${TZ:-UTC}
+      - TZ=${TZ:-Asia/Kolkata}
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:7655/api/health"]
       interval: 30s
