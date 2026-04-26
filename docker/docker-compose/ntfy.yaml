@@ -8,7 +8,7 @@ services:
       - TZ=${TZ:-Asia/Kolkata}    # optional: set desired timezone
     user: UID:GID # optional: replace with your own user/group or uid/gid
     volumes:
-      - /var/cache/ntfy:/var/cache/ntfy
+      - /opt/ntfy/cache/ntfy:/var/cache/ntfy
       - /etc/ntfy:/etc/ntfy
     ports:
       - 80:80
