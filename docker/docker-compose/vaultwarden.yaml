@@ -4,6 +4,7 @@ services:
     container_name: vaultwarden
     restart: unless-stopped
     environment:  # Set to false after creating your account
+      - DOMAIN=${DOMAIN}
       - SSO_ENABLED=true
       - SSO_AUTHORITY=${SSO_AUTHORITY}
       - SSO_CLIENT_ID=${SSO_CLIENT_ID}
