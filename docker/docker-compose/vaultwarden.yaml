@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     environment:  # Set to false after creating your account
       - DOMAIN=${DOMAIN}
+      - ADMIN_TOKEN=${ADMIN_TOKEN:-YourVerySecureRandomStringHere}
       - SSO_ENABLED=true
       - SSO_AUTHORITY=${SSO_AUTHORITY}
       - SSO_CLIENT_ID=${SSO_CLIENT_ID}
