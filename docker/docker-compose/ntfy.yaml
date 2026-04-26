@@ -6,7 +6,6 @@ services:
       - serve
     environment:
       - TZ=${TZ:-Asia/Kolkata}    # optional: set desired timezone
-    user: UID:GID # optional: replace with your own user/group or uid/gid
     volumes:
       - /opt/ntfy/cache/ntfy:/var/cache/ntfy
       - /etc/ntfy:/etc/ntfy
